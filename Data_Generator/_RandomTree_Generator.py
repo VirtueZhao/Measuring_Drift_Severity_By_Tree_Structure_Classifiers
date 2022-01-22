@@ -1,21 +1,20 @@
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
-from skmultiflow.data import AGRAWALGenerator
+from skmultiflow.data import RandomTreeGenerator
 from skmultiflow.data import ConceptDriftStream
 from skmultiflow.trees import HoeffdingAdaptiveTreeClassifier
 from sklearn.metrics import accuracy_score
 #%%%
-columns = ['salary', 'commission', 'age', 'elevel', 'car', 'zipcode', 'hvalue', 'hyears', 'loan', 'class']
-
 target_large_abrupt_generator = ConceptDriftStream(
-    stream=AGRAWALGenerator(classification_function=1, random_state=1, balance_classes=True, perturbation=0),
-    drift_stream=(ConceptDriftStream(
-        stream=AGRAWALGenerator(classification_function=3, random_state=2, balance_classes=True, perturbation=0),
-        drift_stream=AGRAWALGenerator(classification_function=4, random_state=3, balance_classes=True, perturbation=0),
+    stream=RandomTreeGenerator(tree_random_state=10, sample_random_state=10, n_num_features=20, fraction_leaves_per_level=0.1),
+    drift_stream=ConceptDriftStream(
+        stream=RandomTreeGenerator(tree_random_state=20, sample_random_state=20, n_num_features=20, fraction_leaves_per_level=0.2),
+        drift_stream=RandomTreeGenerator(tree_random_state=30, sample_random_state=30, n_num_features=20, fraction_leaves_per_level=0.8),
         random_state=2, position=5000, width=1
-    )),
+    ),
     random_state=0, position=5000, width=1)
+
 
 stream = target_large_abrupt_generator.next_sample(15000)
 
@@ -54,10 +53,10 @@ for i in range(len(stream_x_all)):
     HT_WithDD.partial_fit(x, y)
     HT_TDM.partial_fit(x, y)
 
+
     if (sample_pass + 1) % sample_num == 0:
         accuracy_withoutDD.append(accuracy_score(true_labels, pred_withoutDD))
         accuracy_withDD.append(accuracy_score(true_labels, pred_withDD))
-        accuracy_TDM.append(accuracy_score(true_labels, pred_TDM))
     if sample_pass in drift_point:
         HT_WithDD = HoeffdingAdaptiveTreeClassifier(random_state=42)
         HT_WithDD.partial_fit(x, y)
@@ -70,10 +69,7 @@ for i in range(len(stream_x_all)):
 sns.set()
 plt.plot(accuracy_withoutDD[30:], label=['Without DD'])
 plt.plot(accuracy_withDD[30:], label=['With DD'])
-plt.plot(accuracy_TDM[30:], label='TDM')
+# plt.plot(accuracy_TDM[30:], label='TDM')
 plt.legend()
 plt.show()
 print(np.count_nonzero(stream_y_all))
-#%%%
-np.savetxt("Case_Study_Results/AGRAWAL_DD.csv", np.array(accuracy_withDD))
-np.savetxt("Case_Study_Results/AGRAWAL_TDM.csv", np.array(accuracy_TDM))
