@@ -24,25 +24,25 @@ def generate_gaussian_2d_stream(class_0_means, class_0_cov, class_1_means, class
         current_concept = int(i / instance_per_concept)
         label = random.randint(0, 1)
         if current_concept == 0:
-            # print("Generating Datasets", i + 1, "From Concept", current_concept)
+            # print("Generating Case_Study_Results", i + 1, "From Concept", current_concept)
             data = generate_gaussian_data(label, class_0_means[current_concept], class_0_cov, class_1_means[current_concept], class_1_cov)
         else:
             drift_p = drift_position[current_concept - 1]
             if drift_p <= i < drift_p + width:
                 prob_threshold = (i + 1 - drift_p) / width
                 prob = random.uniform(0, 1)
-                # print("Generating Datasets", i + 1, "From Concept", current_concept - 1, " to Concept", current_concept,
+                # print("Generating Case_Study_Results", i + 1, "From Concept", current_concept - 1, " to Concept", current_concept,
                       # "with prob:", prob_threshold)
                 # print("Probability: ", prob)
                 if prob <= prob_threshold:
-                    # print("Generating Datasets From Concept", current_concept)
+                    # print("Generating Case_Study_Results From Concept", current_concept)
                     data = generate_gaussian_data(label, class_0_means[current_concept], class_0_cov, class_1_means[current_concept], class_1_cov)
                 else:
-                    # print("Generating Datasets From Concept", current_concept-1)
+                    # print("Generating Case_Study_Results From Concept", current_concept-1)
                     data = generate_gaussian_data(label, class_0_means[current_concept-1], class_0_cov, class_1_means[current_concept-1], class_1_cov)
                 # data = []
             else:
-                # print("Generating Datasets", i + 1, "From Concept", current_concept)
+                # print("Generating Case_Study_Results", i + 1, "From Concept", current_concept)
                 data = generate_gaussian_data(label, class_0_means[current_concept], class_0_cov, class_1_means[current_concept], class_1_cov)
 
         stream.append(data)
