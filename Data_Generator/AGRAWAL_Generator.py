@@ -1,6 +1,6 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import seaborn as sns
+import matplotlib.pyplot as plt
 from skmultiflow.data import AGRAWALGenerator
 from skmultiflow.data import ConceptDriftStream
 from skmultiflow.trees import HoeffdingAdaptiveTreeClassifier

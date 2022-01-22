@@ -1,23 +1,23 @@
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
-from skmultiflow.data import RandomRBFGeneratorDrift
+from skmultiflow.data import HyperplaneGenerator
 from skmultiflow.data import ConceptDriftStream
 from skmultiflow.trees import HoeffdingAdaptiveTreeClassifier
 from sklearn.metrics import accuracy_score
-
 #%%%
 target_large_abrupt_generator = ConceptDriftStream(
-    stream=RandomRBFGeneratorDrift(model_random_state=2, sample_random_state=2, change_speed=0.2, num_drift_centroids=25),
-    drift_stream=ConceptDriftStream(
-        stream=RandomRBFGeneratorDrift(model_random_state=4, sample_random_state=4, change_speed=0.2, num_drift_centroids=30),
-        drift_stream=RandomRBFGeneratorDrift(model_random_state=6, sample_random_state=6, change_speed=0.2, num_drift_centroids=40),
+    stream=HyperplaneGenerator(random_state=2, n_features=50, n_drift_features=1, noise_percentage=0, sigma_percentage=0),
+    drift_stream=(ConceptDriftStream(
+        stream=HyperplaneGenerator(random_state=4, n_features=50, n_drift_features=2, noise_percentage=0, sigma_percentage=0),
+        drift_stream=HyperplaneGenerator(random_state=8, n_features=50, n_drift_features=10, noise_percentage=0, sigma_percentage=0),
         random_state=2, position=5000, width=1
-    ),
-    random_state=0, position=5000, width=1
-)
+    )),
+    random_state=0, position=5000, width=1)
+
 
 stream = target_large_abrupt_generator.next_sample(15000)
+file_name = 'Dissimilar_Datasets/Synthetic/Hyperplane_Large_Abrupt_Target.csv'
 
 
 drift_point = [5000, 10000]
@@ -54,6 +54,7 @@ for i in range(len(stream_x_all)):
     HT_WithDD.partial_fit(x, y)
     HT_TDM.partial_fit(x, y)
 
+
     if (sample_pass + 1) % sample_num == 0:
         accuracy_withoutDD.append(accuracy_score(true_labels, pred_withoutDD))
         accuracy_withDD.append(accuracy_score(true_labels, pred_withDD))
@@ -68,12 +69,9 @@ for i in range(len(stream_x_all)):
     sample_pass += 1
 
 sns.set()
-# plt.plot(accuracy_withoutDD[30:], label=['Without DD'])
-plt.plot(accuracy_withDD[30:], label=['With DD'])
-plt.plot(accuracy_TDM[30:], label='TDM')
+plt.plot(accuracy_withoutDD[30:], label='Without DD')
+plt.plot(accuracy_withDD[30:], label='With DD')
+# plt.plot(accuracy_TDM[30:], label='TDM')
 plt.legend()
 plt.show()
 print(np.count_nonzero(stream_y_all))
-#%%%
-np.savetxt("Case_Study_Results/RandomRBF_DD.csv", np.array(accuracy_withDD))
-np.savetxt("Case_Study_Results/RandomRBF_TDM.csv", np.array(accuracy_TDM))
