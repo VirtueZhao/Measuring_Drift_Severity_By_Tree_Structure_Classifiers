@@ -11,7 +11,7 @@ def generate_data(concept_size, drift_type):
     if concept_size == 'Large':
         example_num = 5000
     else:
-        example_num = 1000
+        example_num = 10004
     if drift_type == 'Abrupt':
         drift_width = 1
     else:
