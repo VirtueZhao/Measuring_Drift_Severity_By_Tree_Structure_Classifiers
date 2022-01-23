@@ -19,15 +19,15 @@ def generate_data(concept_size, drift_type):
     print("Generating RandomRBF - " + concept_size +'(' + str(example_num) + ')' + "-" + drift_type + '(' + str(drift_width) + ')')
     data_generator = ConceptDriftStream(
         stream=RandomRBFGeneratorDrift(model_random_state=2, sample_random_state=2, change_speed=0.2,
-                                       num_drift_centroids=25),
+                                       num_drift_centroids=4),
         drift_stream=ConceptDriftStream(
-            stream=RandomRBFGeneratorDrift(model_random_state=4, sample_random_state=4, change_speed=0.2,
-                                           num_drift_centroids=30),
-            drift_stream=RandomRBFGeneratorDrift(model_random_state=6, sample_random_state=6, change_speed=0.2,
-                                                 num_drift_centroids=45),
-            random_state=2, position=5000, width=1
+            stream=RandomRBFGeneratorDrift(model_random_state=2, sample_random_state=2, change_speed=0.2,
+                                           num_drift_centroids=5),
+            drift_stream=RandomRBFGeneratorDrift(model_random_state=2, sample_random_state=2, change_speed=0.2,
+                                                 num_drift_centroids=10),
+            random_state=2, position=example_num, width=drift_width
         ),
-        random_state=0, position=5000, width=1
+        random_state=0, position=example_num, width=drift_width
     )
 
     stream = data_generator.next_sample(example_num * 3)
@@ -36,7 +36,7 @@ def generate_data(concept_size, drift_type):
     stream_x_all = stream[0]
     stream_y_all = stream[1]
     sample_pass = 0
-    sample_num = 5
+    sample_num = 1
 
     HT_WithoutDD = HoeffdingAdaptiveTreeClassifier(random_state=42)
     HT_WithDD = HoeffdingAdaptiveTreeClassifier(random_state=42)
@@ -78,9 +78,9 @@ def generate_data(concept_size, drift_type):
         sample_pass += 1
 
     sns.set()
-    plt.plot(accuracy_withoutDD[20:], label='Without DD')
-    plt.plot(accuracy_withDD[20:], label='With DD')
-    plt.plot(accuracy_TDM[20:], label='TDM')
+    plt.plot(accuracy_withoutDD[100:], label='Without DD')
+    plt.plot(accuracy_withDD[100:], label='With DD')
+    plt.plot(accuracy_TDM[100:], label='TDM')
     plt.legend()
     plt.show()
 

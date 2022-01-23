@@ -32,7 +32,7 @@ def generate_data(concept_size, drift_type):
     stream_x_all = stream[0]
     stream_y_all = stream[1]
     sample_pass = 0
-    sample_num = 5
+    sample_num = 1
 
     HT_WithoutDD = HoeffdingAdaptiveTreeClassifier(random_state=42)
     HT_WithDD = HoeffdingAdaptiveTreeClassifier(random_state=42)
@@ -74,9 +74,9 @@ def generate_data(concept_size, drift_type):
         sample_pass += 1
 
     sns.set()
-    plt.plot(accuracy_withoutDD[20:], label='Without DD')
-    plt.plot(accuracy_withDD[20:], label='With DD')
-    plt.plot(accuracy_TDM[20:], label='TDM')
+    plt.plot(accuracy_withoutDD[100:], label='Without DD')
+    plt.plot(accuracy_withDD[100:], label='With DD')
+    plt.plot(accuracy_TDM[100:], label='TDM')
     plt.legend()
     plt.show()
 
