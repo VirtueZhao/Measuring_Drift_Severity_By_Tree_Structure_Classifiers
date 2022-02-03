@@ -1,0 +1,109 @@
+Adult:			Majority: 0 - 37155			Minority: 1 - 11687		Total: 48842
+Bank:			Majority: 0 - 39922			Minority: 1 - 5289		Total: 45211
+Cardio:			Balanced: 0 - 35021			Balanced: 1 - 34979		Total: 70000
+Chess:			Balanced: 0 - 14900			Balanced: 1 - 13156		Total: 28056
+Credit:			Majority: 0 - 23364			Minority: 1 - 6636		Total: 30000
+Diamond:		Majority: 0 - 34283			Minority: 1 - 19657		Total: 53940
+Gamma:			Majority: 1 - 12332			Minority: 0 - 6688		Total: 19020
+PokerPart:		Balanced: 0 - 49950			Balanced: 1 - 50050		Total: 100000	
+
+Dataset					1								2						4							8
+Reverse_Adult			48842[0:37155, 1:11687]			24420[0:18577, 1:5843]	12209[0:9288, 1:2921]		6104[0:4644, 1:1460]
+Reverse_Bank			
+Reverse_Cardio
+Reverse_Chess
+Reverse_Credit
+Reverse_Diamonds
+Reverse_Gamma
+Reverse_Part
+
+Adult:
+0 - Feature:	24
+1 - Feature:	47
+2 - Feature:	26
+3 - Feature:	46
+4 - Feature:	56
+5 - Feature:	57
+6 - Feature:	35
+7 - Feature:	48
+8 - Feature:	33
+9 - Feature:	8
+10 - Feature:	36
+11 - Feature:	18
+12 - Feature:	0
+13 - Feature:	50
+
+
+Bank:
+0 - Feature:	37
+1 - Feature:	40
+2 - Feature:	24
+3 - Feature:	22
+4 - Feature:	1
+5 - Feature:	29
+6 - Feature:	33
+7 - Feature:	34
+8 - Feature:	27
+9 - Feature:	19
+
+
+Credit:
+0 - Feature:	0
+1 - Feature:	7
+2 - Feature:	4
+3 - Feature:	6
+4 - Feature:	19
+5 - Feature:	18
+
+
+Gamma:
+0 - Feature:	8
+1 - Feature:	0	
+2 - Feature:	1
+
+Poker:
+0  - Feature:	13
+1  - Feature:	46
+2  - Feature:	54
+3  - Feature:	27
+4  - Feature:	26
+5  - Feature:	22
+6  - Feature:	65
+7  - Feature:	25
+8  - Feature:	9
+9  - Feature:	42
+10 - Feature:	20
+11 - Feature:	8
+12 - Feature:	5
+13 - Feature:	72
+14 - Feature:	43
+15 - Feature:	41
+16 - Feature:	6
+17 - Feature:	1
+18 - Feature:	2
+19 - Feature:	29
+20 - Feature:	80
+
+Chess:
+0  - Feature:	32
+1  - Feature:	4
+2  - Feature:	7
+3  - Feature:	6
+4  - Feature:	3
+5  - Feature:	24
+6  - Feature:	33
+7  - Feature:	1
+8  - Feature:	36
+9  - Feature:	27
+
+Cardio:
+0  - Feature:	4
+1  - Feature:	6
+2  - Feature:	7
+
+Diamond:
+0  - Feature:	12
+1  - Feature:	0
+2  - Feature:	5
+3  - Feature:	6
+4  - Feature:	17
